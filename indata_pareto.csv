@@ -1,0 +1,2 @@
+ISIN,Affärsdag,Likviddag,Ticker,Transaktionstyp,Antal,Kurs,Belopp,Valuta,Avräkningsnota,Totalt,Courtage,exportToCsv_contractnotes_header_valRate,exportToCsv_contractnotes_header_documentId,exportToCsv_contractnotes_header_downloadHash
+"SE0000379190","2022-11-24","2022-11-28","CAST","Buy",200,137.1003,-27420.06,"SEK","1758226111",-27459.06,-39,"","PB.SE.1023811","a9c7e05d62d712b0ad7c6002fd13ee3a"
