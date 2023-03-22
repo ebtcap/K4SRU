@@ -13,7 +13,8 @@ Som "Beteckning" används lite blandat mellan ticker och aktienamn beroende vad 
 - Hämta ner och installera
   - Java 17 (eller senare)
   - Maven ( https://maven.apache.org/download.cgi)
-- Bygg genom att köra mvn package
+- Ställ dig i samma katalog som pom.xml och kör  ``` mvn package```
+  - Då ska programmet byggas och en target-mappp skapas.
 
 
 ## Indata
@@ -25,8 +26,8 @@ Redigera alla filer som börjar på indata*
 OBS, granska csv manuellt! T.ex. ska inte fonder (inklusive ETF:er) vara med. Dvs. ska ej redovisas via K4.
 
 ## Kör programmet
-Starta programmet genom att köra
-java com.ebtcap.sru.SruMaker 2022 true
+Öppna ett terminalfönster och ställ dig i rot-katalogen (samma katalog där pom.xml finns)
+Kör programmet genom att skriva  ``` java -classpath ./target/SruMaker-1.0-SNAPSHOT.jar com.ebtcap.sru.SruMaker 2022 true ```
 - Det första argumentet är året
 - Det andra är true/false om transaktionerna ska slås samman eller inte. Slå samman transaktionerna minskar antalet rader att deklarera.
 
