@@ -54,9 +54,10 @@ public class SRUService {
 
             sb.add("#BLANKETT " + blankett.getBlankettId());
             sb.add("#IDENTITET "+ blankett.getIdentitetPersonnummer() + " " + date + "");
-            sb.add("#UPPGIFT 7014 " + blankett.getK4Nummer());
+            sb.add("#NAMN " + blankett.getNamn());
             addAktieRows(sb, blankett.getAktieRader(), blankett.getSummaRadAktier());
             addValutaRows(sb, blankett.getValutaRader(), blankett.getSummaRadValuta());
+            sb.add("#UPPGIFT 7014 " + blankett.getK4Nummer());
             sb.add("#BLANKETTSLUT");
         }
         sb.add("#FIL_SLUT");

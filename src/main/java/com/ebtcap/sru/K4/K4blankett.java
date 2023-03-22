@@ -9,6 +9,7 @@ import java.util.List;
 public class K4blankett {
     private int K4Nummer;
     private String identitetPersonnummer;
+    private String namn;
     private Date identitetDatum;
     private String blankettId;
 
@@ -82,11 +83,20 @@ public class K4blankett {
         this.summaRadValuta = summaRadValuta;
     }
 
+    public String getNamn() {
+        return namn;
+    }
+
+    public void setNamn(String namn) {
+        this.namn = namn;
+    }
+
     @Override
     public String toString() {
         return "K4blankett{" +
                 "K4Nummer=" + K4Nummer +
                 ", identitetPersonnummer='" + identitetPersonnummer + '\'' +
+                ", namn='" + namn + '\'' +
                 ", identitetDatum=" + identitetDatum +
                 ", blankettId='" + blankettId + '\'' +
                 ", aktieRader=" + print(aktieRader) +

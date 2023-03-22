@@ -23,7 +23,7 @@ public class K4blankettService {
         Date createDate = new Date();
         int page = 1;
         while (year.getSecuritySales().size() > (page -1) * SALES_PER_PAGE) {
-            K4blankett kPage = createK4Page(year, page, personNrId, createDate);
+            K4blankett kPage = createK4Page(year, page, personNrId, sruInfo.getFullName(), createDate);
 
             logger.info(kPage);
 
@@ -40,12 +40,14 @@ public class K4blankettService {
      * @param personNrId personnummer
      * @return blanketten
      */
-    private static K4blankett createK4Page(final FinancialYear year, int page, final String personNrId, Date createDate) {
+    private static K4blankett createK4Page(final FinancialYear year, int page, final String personNrId, final String namn,
+                                           Date createDate) {
         K4blankett k4blankett = new K4blankett();
         k4blankett.setBlankettId("K4-" + year.getYear() +"P4");
         k4blankett.setIdentitetDatum(createDate);
         k4blankett.setK4Nummer(page);
         k4blankett.setIdentitetPersonnummer(personNrId);
+        k4blankett.setNamn(namn);
 
         List<SecuritySale> equitySales = new ArrayList<>(year.getSecuritySales().values());
         List<CurrencySale> currencySales = new ArrayList<>(year.getCurrencySales().values());
