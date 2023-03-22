@@ -27,6 +27,10 @@ public class SruMaker {
         if (args.length >= 2) {
             mergeTransactions = "true".equalsIgnoreCase(args[1]);
         }
+        logger.info("Merging transactions: " + mergeTransactions);
+
+        SRUInfo sruInfo = SRUService.setupSruInfo();
+
         Map<String, Double> currencySEKConversionRates = getConversionRates();
         FinancialYear financialYear = new FinancialYear(year, currencySEKConversionRates);
         financialYear.setMergeTransactions(mergeTransactions);
@@ -38,7 +42,6 @@ public class SruMaker {
         processTrades(financialYear);
         writeK4Excel(financialYear);
 
-        SRUInfo sruInfo = SRUService.setupSruInfo();
 
         //Generate the actual files
         List<K4blankett> k4blankettList = K4blankettService.createFromFinancialYear(financialYear, sruInfo);

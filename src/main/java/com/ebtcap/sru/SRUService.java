@@ -159,11 +159,15 @@ public class SRUService {
         }
         logger.info(sruInfo);
 
-        if (sruInfo.getOrgNummer().length() != 12) {
+        if (sruInfo.getOrgNummer() == null || sruInfo.getOrgNummer().length() != 12) {
             throw new RuntimeException("Invalid personnummer length. Should be 12 digits");
         }
 
-        if (sruInfo.getPostNr().length() != 5) {
+        if (sruInfo.getFullName() == null || sruInfo.getFullName().length() < 2) {
+            throw new RuntimeException("Name is missing");
+        }
+
+        if (sruInfo.getPostNr() == null || sruInfo.getPostNr().length() != 5) {
             throw new RuntimeException("Invalid postnummer length. Should be 5 digits");
         }
 
