@@ -1,6 +1,6 @@
 # SRU Maker
 
-Det här programmet genererar K4 SRU-fil som kan laddas upp till skatteverket. Programmet skapar även  Excel-fil så att resultatet kan granskas.
+Det här programmet genererar K4 SRU-fil som kan laddas upp till skatteverket. Programmet skapar även Excel-fil så att resultatet kan granskas.
 Programmet hanterar valutakonton och räknar om enligt skatteverkets regler. 
 
 I Skatteverkets deklarationstjänst kan du importera filen på två ställen i e-tjänsten. Antingen direkt i menyvalet Bilagor, eller från den bilaga som har skapats åt dig. Välj BLANKETTER.SRU som du skapat med detta program. Klicka på Importera. Granska sedan resultatet innan du godkänner.
@@ -14,13 +14,13 @@ Som "Beteckning" används lite blandat mellan ticker och aktienamn beroende vad 
   - Java 17 (t.ex. https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html)
   - Maven (https://maven.apache.org/download.cgi för installation se https://maven.apache.org/install.html)
 - Ställ dig i samma katalog som pom.xml och kör  ```mvn package```
-  - Funkar det skapas en target-mappp där SruMaker-1.0-SNAPSHOT.jar finns.
+  - Funkar det skapas en target-mapp där SruMaker-1.0-SNAPSHOT.jar finns.
 
 
 ## Indata
 Redigera alla filer som börjar på indata*
 - Personliga uppgifter i indata.properties.
-- CSV med transaktoner från Avanza, Pareto och Interactive Brokers. Använd den/de som är relavanta för dig. Ta bort den/de som är orelevanta.
+- CSV med transaktioner från Avanza, Pareto och Interactive Brokers. Använd den/de som är relevanta för dig. Ta bort den/de som är orelevanta.
 - Ingående saldo för aktier och valutor med inköpsvärde.
 
 OBS, granska csv manuellt! T.ex. ska inte fonder (inklusive ETF:er) vara med. Dvs. ska ej redovisas via K4.
