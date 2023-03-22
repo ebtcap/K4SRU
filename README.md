@@ -33,9 +33,5 @@ Programmet läser in CSV-filerna och skapar följande utdata-filer
 
 OBS! Använder du Excel för att fylla i omkostnadsbelopp manuellt i skatteverkets tjänst så kontrollera även försäljningsvärde. Det händer att mäklare beräknar beloppet i SEK på annan växelkurs än i uppgiften som de skickar till skatteverket. Skriv i så fall över värdet som är förifyllt.
 
-# Status 2023-03-21
-Det här funkade förra året. Men i år får jag det tyvärr inte att funka. Skatteverkets tjänst kraschar när BLANKETTER.SRU läses in vid deklarationen.... Oklart var felet ligger. Tillfälligt fel? Jag tror dock att den genererade SRU-filen är korrekt. Laddar man upp en (annan) felaktig fil så ger deras tjänst ett tydligt felmeddelande. 
-
-
 # Kontakt
 https://twitter.com/ebtCap
