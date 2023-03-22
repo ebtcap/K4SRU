@@ -11,10 +11,10 @@ Som "Beteckning" används lite blandat mellan ticker och aktienamn beroende vad 
 
 ## Bygg
 - Hämta ner och installera
-  - Java 17 (eller senare)
-  - Maven ( https://maven.apache.org/download.cgi)
-- Ställ dig i samma katalog som pom.xml och kör  ``` mvn package```
-  - Då ska programmet byggas och en target-mappp skapas.
+  - Java 17 (t.ex. https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html)
+  - Maven (https://maven.apache.org/download.cgi för installation se https://maven.apache.org/install.html)
+- Ställ dig i samma katalog som pom.xml och kör  ```mvn package```
+  - Funkar det skapas en target-mappp där SruMaker-1.0-SNAPSHOT.jar finns.
 
 
 ## Indata
