@@ -14,8 +14,8 @@ I Skatteverkets delarationstjänst kan du importera filen på två ställen i e-
 
 ## Indata
 Redigera alla filer som börjar på indata*
-- Personliga uppgifter i indata.properties. Egentligen är det bara personnummer som är viktigt här.
-- CSV med transaktoner från Avanza, Pareto och Interactive Brokers
+- Personliga uppgifter i indata.properties.
+- CSV med transaktoner från Avanza, Pareto och Interactive Brokers. Använd den/de som är relavanta för dig. Ta bort den/de som är orelevanta.
 - Ingående saldo för aktier och valutor med inköpsvärde.
 
 OBS, granska csv manuellt! T.ex. ska inte fonder (inklusive ETF:er) vara med. Dvs. ska ej redovisas via K4.
@@ -31,7 +31,7 @@ Programmet läser in CSV-filerna och skapar följande utdata-filer
 - utdata_K4_2022.xlsx. Innehåller alla K4-uppgifter.
 - utadata_aktier_2022.xlsx och utdata_valuta_2022.xlsx. Innehåller utgående innehav i aktier och valuta. Dessa kan sedan användas som indata nästa år.
 
-OBS! Använder du Excel för att fylla i omkostnadsbelopp manuellt i skatteverkets tjänst så kontrollera även försäljningsvärde. Det händer att mäklare beräknar beloppet i SEK på annan växelkurs än i uppgiften som de skickar till skatteverket. Skriv i så fall över värdet som är förifyllt.
+Programmet använder en genonsnittskurs för året för valutatransaktioner. Varje transaktion i en valuta som inte är SEK genererar en valutatransation också. T.ex. om du har sålt en aktie och fått betalt i dollar till ditt valutakonto.
 
 # Kontakt
 https://twitter.com/ebtCap
