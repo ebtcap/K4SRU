@@ -16,6 +16,8 @@ Som "Beteckning" används lite blandat mellan ticker och aktienamn beroende vad 
 - Ställ dig i samma katalog som pom.xml och kör  ```mvn package```
   - Funkar det skapas en target-mapp där SruMaker-1.0-SNAPSHOT.jar finns.
 
+Alternativt, om du inte kan/vill bygga själv, ladda ner SruMaker-1.0-SNAPSHOT.jar från "Releases". Då måste du också ladda ner indata-filerna till samma mapp.
+
 
 ## Indata
 Redigera alla filer som börjar på indata*
