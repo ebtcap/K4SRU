@@ -218,7 +218,7 @@ public class FinancialYearService {
     }
 
     private static void addSecuritySale(FinancialYear financialYear, SecuritySale securitySale) {
-        logger.info("Adding SALE " + securitySale.getAmount() + ". Result: " + securitySale.getProfit());
+        logger.debug("Adding SALE " + securitySale.getAmount() + ". Result: " + securitySale.getProfit());
         SecuritySale existingSale = financialYear.getSecuritySales().get(securitySale.getName());
         if (financialYear.isMergeTransactions()) {
             if (existingSale == null) {

@@ -26,7 +26,7 @@ public class ExcelCurrencyHoldingsReader {
             if (rowNumber == 1) {
                 continue;
             }
-            logger.info("\tReading row " + rowNumber);
+            logger.debug("\tReading row " + rowNumber);
             ExcelCurrencyHolding excelCurrencyHolding = new ExcelCurrencyHolding();
 
             String currencyCode = row.getCell(0).getStringCellValue();
