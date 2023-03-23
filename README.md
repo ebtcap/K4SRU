@@ -11,6 +11,7 @@ Om du har data från andra mäklare så kan du antingen anpassa formatet till n�
 - Namn (på aktie, valuta alt. ticker)
 - Antal
 - Köp/Sälj
+- Totalt belopp (inklusive avgifter)
 - Valuta (framförallt om inte mäklaren växlat till SEK automatiskt.)
 
 Har de dragit avgifter mm. i annan valuta än SEK ska det redovisas som en valutatansaktion. Likaså blir mottagna utdelningar ett köp av valuta. Själva utdelningen i sig brukar mälklaren rapportera och ska inte vara med i K4, men valutadelen behöver du ha koll på.
