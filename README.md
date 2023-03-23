@@ -14,7 +14,7 @@ Om du har data från andra mäklare så kan du antingen anpassa formatet till n�
 - Totalt belopp (inklusive avgifter)
 - Valuta (framförallt om inte mäklaren växlat till SEK automatiskt.)
 
-Har de dragit avgifter mm. i annan valuta än SEK ska det redovisas som en valutatansaktion. Likaså blir mottagna utdelningar ett köp av valuta. Själva utdelningen i sig brukar mälklaren rapportera och ska inte vara med i K4, men valutadelen behöver du ha koll på.
+Har de dragit avgifter mm. i annan valuta än SEK ska det redovisas som en valutatansaktion. Likaså blir mottagna utdelningar ett köp av valuta. Själva utdelningen i sig brukar mäklaren rapportera och ska inte vara med i K4, men valutadelen behöver du ha koll på.
 
 Programmet använder en genomsnittskurs för året för valutatransaktioner. Varje transaktion i en valuta som inte är SEK genererar en valutatransaktion också. T.ex. om du har sålt en aktie och fått betalt i dollar till ditt valutakonto. För blankningar bokas affären först när positionen är täckt.
 
