@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="SruMaker" options="--add-modules java.base" />
+      <module name="SruMaker" options="" />
     </option>
   </component>
 </project>

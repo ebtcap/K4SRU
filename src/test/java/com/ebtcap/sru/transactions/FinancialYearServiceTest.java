@@ -58,6 +58,7 @@ class FinancialYearServiceTest {
         currecySEKConversionRates.put("USD", 9.04);
 
         FinancialYear financialYear = new FinancialYear(2022, currecySEKConversionRates);
+        financialYear.setMergeTransactions(true);
         FinancialYearService.addInitialEquityHolding(financialYear,"Volvo", 100d, Money.of(100,"SEK"));
         FinancialYearService.addInitialEquityHolding(financialYear,"Volvo", 50d, Money.of(75,"SEK"));
         FinancialYearService.addInitialEquityHolding(financialYear,"Nordea", 50d, Money.of(75,"SEK"));
@@ -73,7 +74,7 @@ class FinancialYearServiceTest {
         currecySEKConversionRates.put("USD",9.04);
 
         FinancialYear financialYear = new FinancialYear(2022, currecySEKConversionRates);
-
+        financialYear.setMergeTransactions(true);
         FinancialYearService.addInitialCurrencyHolding(financialYear, Money.of(5,"USD"), Money.of(50,"SEK"));
 
         return financialYear;
@@ -86,14 +87,12 @@ class FinancialYearServiceTest {
 
 
         FinancialYearService.addSellEquity(financialYear,"Microsoft",3, Money.of(100,"USD"));
-        assertEquals(1, financialYear.getSecuritySales().size());
-        assertEquals(-3, financialYear.getEquities().get("Microsoft").getAmount());
-        assertEquals("SEK 904.00", financialYear.getSecuritySales().get("Microsoft").getCostPriceSEK().toString());
-        assertEquals("USD 1100.00", financialYear.getCurrencies().get("USD").getMoney().toString());
-
-
+        assertEquals(0, financialYear.getSecuritySales().size());
 
         FinancialYearService.addBuyEquity(financialYear,"Microsoft",3, Money.of(90,"USD"));
+        assertEquals("SEK 813.60", financialYear.getSecuritySales().get("Microsoft").getCostPriceSEK().toString());
+        assertEquals("USD 1010.00", financialYear.getCurrencies().get("USD").getMoney().toString());
+
         assertEquals(1, financialYear.getSecuritySales().size());
         assertNull(financialYear.getEquities().get("Microsoft"));
         assertEquals("USD 1010.00", financialYear.getCurrencies().get("USD").getMoney().toString());
@@ -109,9 +108,8 @@ class FinancialYearServiceTest {
 
 
         FinancialYearService.addSellEquity(financialYear,"Microsoft",3, Money.of(100,"USD"));
-        assertEquals(1, financialYear.getSecuritySales().size());
+        assertEquals(0, financialYear.getSecuritySales().size());
         assertEquals(-3, financialYear.getEquities().get("Microsoft").getAmount());
-        assertEquals("SEK 904.00", financialYear.getSecuritySales().get("Microsoft").getCostPriceSEK().toString());
         assertEquals("USD 105.00", financialYear.getCurrencies().get("USD").getMoney().toString());
 
 
@@ -137,7 +135,7 @@ class FinancialYearServiceTest {
         FinancialYearService.addSellEquity(financialYear,"Microsoft",5, Money.of(160,"USD"));
         assertEquals(5, financialYear.getEquities().get("Microsoft").getAmount());
         assertEquals("USD -120.00", financialYear.getCurrencies().get("USD").getMoney().toString());
-        assertEquals("SEK 1269.08", financialYear.getSecuritySales().get("Microsoft").getProfit().toString());
+        assertEquals("SEK 226.00", financialYear.getSecuritySales().get("Microsoft").getProfit().toString());
 
     }
 }
