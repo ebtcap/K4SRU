@@ -41,7 +41,7 @@ Alternativt, om du inte kan/vill bygga själv, ladda ner SruMaker-1.0-SNAPSHOT.j
 
 ## Kör programmet
 Öppna ett terminalfönster och ställ dig i rot-katalogen (samma katalog där pom.xml finns)
-Kör programmet genom att skriva  ``` java -classpath ./target/SruMaker-1.0-SNAPSHOT.jar com.ebtcap.sru.SruMaker 2022 true ```
+Kör programmet genom att skriva  ``` java -classpath ./target/SruMaker-1.0-SNAPSHOT-jar-with-dependencies.jar com.ebtcap.sru.SruMaker 2022 true ```
 - Det första argumentet är året
 - Det andra är true/false om transaktionerna ska slås samman eller inte. Slå samman transaktionerna minskar antalet rader att deklarera.
 
