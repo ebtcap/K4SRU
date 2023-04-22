@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -58,6 +59,8 @@ public class K4blankettService {
             List<SecuritySale> eqSecuritySalesSubSet = equitySales.subList(start, end);
             k4blankett.setAktieRader(createAktieRader(eqSecuritySalesSubSet));
             k4blankett.setSummaRadAktier(createSumAktier(eqSecuritySalesSubSet));
+        } else {
+            k4blankett.setAktieRader(Collections.emptyList());
         }
         if (currencySales.size() > VALUTA_PER_PAGE) {
             throw new RuntimeException("Ej implementerat! För många valutor");
@@ -65,6 +68,8 @@ public class K4blankettService {
         if (page ==  1 && currencySales.size() > 0) {
             k4blankett.setValutaRader(createValutaRader(currencySales));
             k4blankett.setSummaRadValuta(createSumValuta(currencySales));
+        } else {
+            k4blankett.setValutaRader(Collections.emptyList());
         }
 
         return k4blankett;

@@ -2,6 +2,7 @@ package com.ebtcap.sru;
 
 import com.ebtcap.sru.K4.K4blankett;
 import com.ebtcap.sru.K4.K4blankettService;
+import com.ebtcap.sru.K4.SRUValidator;
 import com.ebtcap.sru.brokerimports.*;
 import com.ebtcap.sru.excel.*;
 import com.ebtcap.sru.transactions.*;
@@ -45,6 +46,8 @@ public class SruMaker {
 
         //Generate the actual files
         List<K4blankett> k4blankettList = K4blankettService.createFromFinancialYear(financialYear, sruInfo);
+
+        SRUValidator.validate(k4blankettList);
 
         SRUFiles sruFiles = SRUService.createSRU(sruInfo, k4blankettList);
 

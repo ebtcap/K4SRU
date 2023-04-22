@@ -1,7 +1,14 @@
 package com.ebtcap.sru.transactions;
 
+import com.ebtcap.sru.K4.K4blankett;
+import com.ebtcap.sru.K4.K4blankettService;
+import com.ebtcap.sru.K4.SRUValidator;
+import com.ebtcap.sru.SRUFiles;
+import com.ebtcap.sru.SRUInfo;
+import com.ebtcap.sru.SRUService;
 import org.javamoney.moneta.Money;
 
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -50,6 +57,39 @@ class FinancialYearServiceTest {
         assertEquals("SEK 3616.00", financialYear.getSecuritySales().get("Microsoft").getCostPriceSEK().toString());
         assertEquals("SEK 45.20", financialYear.getSecuritySales().get("Microsoft").getProfit().toString());
         assertEquals("SEK 16.00", financialYear.getCurrencySales().get("USD").getProfit().toString());
+
+    }
+
+    /**
+     * Super simple basic test
+     */
+    @org.junit.jupiter.api.Test
+    void addBuyEquity2() {
+        FinancialYear financialYear = setupEmptyFinanscialYear();
+
+        FinancialYearService.addBuyEquity(financialYear,"Nordea",120, Money.of(6000,"SEK"));
+        FinancialYearService.addSellEquity(financialYear,"Nordea",50, Money.of(3750,"SEK"));
+        assertEquals(1, financialYear.getSecuritySales().size());
+        assertEquals(70, financialYear.getEquities().get("Nordea").getAmount());
+        assertEquals("SEK 2500.00", financialYear.getSecuritySales().get("Nordea").getCostPriceSEK().toString());
+        assertEquals("SEK 3750.00", financialYear.getSecuritySales().get("Nordea").getSalePriceSEK().toString());
+        assertEquals("SEK 1250.00", financialYear.getSecuritySales().get("Nordea").getProfit().toString());
+
+        SRUInfo sruInfo = setupSruInfoForTest();
+
+        //Generate the actual files
+        List<K4blankett> k4blankettList = K4blankettService.createFromFinancialYear(financialYear, sruInfo);
+
+        SRUValidator.validate(k4blankettList);
+
+        SRUFiles sruFiles = SRUService.createSRU(sruInfo, k4blankettList);
+        assertEquals("#UPPGIFT 3304 1250", sruFiles.getSruBlankett().get(11));
+    }
+
+    private SRUInfo setupSruInfoForTest() {
+        SRUInfo sruInfo = new SRUInfo();
+        sruInfo.setOrgNummer("121212-1212");
+        return sruInfo;
     }
 
     private FinancialYear setupNewFinancialYear() {
@@ -64,6 +104,18 @@ class FinancialYearServiceTest {
         FinancialYearService.addInitialEquityHolding(financialYear,"Nordea", 50d, Money.of(75,"SEK"));
 
         FinancialYearService.addInitialCurrencyHolding(financialYear, Money.of(1000,"USD"), Money.of(9000,"SEK"));
+
+        return financialYear;
+    }
+
+    private FinancialYear setupEmptyFinanscialYear() {
+        Map<String, Double> currecySEKConversionRates = new TreeMap<>();
+
+        currecySEKConversionRates.put("USD", 10.0);
+
+        FinancialYear financialYear = new FinancialYear(2022, currecySEKConversionRates);
+        financialYear.setMergeTransactions(true);
+
 
         return financialYear;
     }
