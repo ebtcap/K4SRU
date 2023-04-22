@@ -70,7 +70,11 @@ public class FinancialYearService {
     public static void addSellEquity(FinancialYear financialYear,
                                          String stockName, double shareAmount, Money totalReceivedInclFees) {
         if (stockName == null || totalReceivedInclFees == null || financialYear == null) {
-            throw new RuntimeException("Invalid input");
+            throw new RuntimeException("Invalid input: " + stockName);
+        }
+        if (totalReceivedInclFees.getNumber().doubleValue() < 0.0) {
+            //assuming that commission has pushed this trade indo negative. Setting to zero
+            totalReceivedInclFees = Money.of(0,"SEK");
         }
         if (shareAmount <= 0) {
             throw new RuntimeException("Amount must be a positive number");
@@ -194,6 +198,13 @@ public class FinancialYearService {
             currencyHolding = new CurrecyHolding(Money.of(0, foreginCurrencyBought.getCurrency()), Money.of(0,"SEK"));
             financialYear.getCurrencies().put(currencyHolding.getMoney().getCurrency().getCurrencyCode(), currencyHolding);
         }
+        if (foreginCurrencyBought.getNumber().doubleValue() < 0.0) {
+            foreginCurrencyBought = Money.of(0,foreginCurrencyBought.getCurrency());
+        }
+
+        if (sekPaid.getNumber().doubleValue() < 0.0) {
+            sekPaid = Money.of(0,sekPaid.getCurrency());
+        }
         currencyHolding.setMoney(currencyHolding.getMoney().add(foreginCurrencyBought));
         currencyHolding.setCostInSEK(currencyHolding.getCostInSEK().add(sekPaid));
     }
@@ -201,6 +212,13 @@ public class FinancialYearService {
     public static void addSellCurrency(FinancialYear financialYear, Money moneyInForeignCurrency, Money moneyInSEK) {
         if (moneyInSEK == null || moneyInForeignCurrency == null || financialYear == null) {
             throw new RuntimeException("Invalid input");
+        }
+        if (moneyInForeignCurrency.getNumber().doubleValue() < 0.0) {
+            moneyInForeignCurrency = Money.of(0,moneyInForeignCurrency.getCurrency());
+        }
+
+        if (moneyInSEK.getNumber().doubleValue() < 0.0) {
+            moneyInSEK = Money.of(0,moneyInSEK.getCurrency());
         }
 
         CurrecyHolding currencyHolding = financialYear.getCurrencies().get(moneyInForeignCurrency.getCurrency().getCurrencyCode());

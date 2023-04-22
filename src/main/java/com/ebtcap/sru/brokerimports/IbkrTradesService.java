@@ -51,7 +51,7 @@ public class IbkrTradesService {
     private static void registerEquityTrade(IbkrTrade trade, FinancialYear year) {
         double quantityPositive = Math.abs(trade.getAmount());
         double commissionPositive = Math.abs(trade.getCommission());
-        double pricePerShare = trade.getUnitPrice();
+        double pricePerShare = Math.abs(trade.getUnitPrice()); //can't really see why price would be negative...
 
         if ("BUY".equals(trade.getAction())) {
             double totalAmount = quantityPositive*pricePerShare + commissionPositive;
