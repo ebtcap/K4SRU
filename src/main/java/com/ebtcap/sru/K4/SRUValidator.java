@@ -1,5 +1,7 @@
 package com.ebtcap.sru.K4;
 
+import com.ebtcap.sru.SRUInfo;
+
 import java.util.List;
 
 public class SRUValidator {
@@ -40,5 +42,15 @@ public class SRUValidator {
             throw new RuntimeException("Förlust-fältet får inte vara negativt. " + k4Rad);
         }
 
+    }
+
+    public static void validateSruInfo(SRUInfo sruInfo) {
+        if (sruInfo.getOrgNummer() == null || sruInfo.getOrgNummer().length() != 12) {
+            throw new RuntimeException("Personnummer ska vara 12 siffror utan bindestreck. " + sruInfo.getOrgNummer());
+        }
+
+        if (sruInfo.getFullName() == null || sruInfo.getFullName().length() == 0) {
+            throw new RuntimeException("Namn saknas");
+        }
     }
 }

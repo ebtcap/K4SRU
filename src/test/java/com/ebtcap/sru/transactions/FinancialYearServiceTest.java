@@ -80,6 +80,7 @@ class FinancialYearServiceTest {
         //Generate the actual files
         List<K4blankett> k4blankettList = K4blankettService.createFromFinancialYear(financialYear, sruInfo);
 
+        SRUValidator.validateSruInfo(sruInfo);
         SRUValidator.validate(k4blankettList);
 
         SRUFiles sruFiles = SRUService.createSRU(sruInfo, k4blankettList);
@@ -88,7 +89,8 @@ class FinancialYearServiceTest {
 
     private SRUInfo setupSruInfoForTest() {
         SRUInfo sruInfo = new SRUInfo();
-        sruInfo.setOrgNummer("121212-1212");
+        sruInfo.setOrgNummer("121212121212");
+        sruInfo.setFullName("Test Testson");
         return sruInfo;
     }
 

@@ -47,6 +47,8 @@ public class SruMaker {
         //Generate the actual files
         List<K4blankett> k4blankettList = K4blankettService.createFromFinancialYear(financialYear, sruInfo);
 
+        SRUValidator.validateSruInfo(sruInfo);
+
         SRUValidator.validate(k4blankettList);
 
         SRUFiles sruFiles = SRUService.createSRU(sruInfo, k4blankettList);
