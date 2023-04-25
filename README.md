@@ -1,4 +1,4 @@
-# SRU Maker
+# K4 SRU-fil generator för deklaration till svenska skatteverket över aktie-affärer
 
 Det här programmet genererar K4 SRU-fil som kan laddas upp till skatteverket. Programmet skapar även Excel-fil så att resultatet kan granskas. Programmet hanterar valutakonton och räknar om enligt skatteverkets regler. 
 
