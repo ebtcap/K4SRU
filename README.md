@@ -41,14 +41,14 @@ Alternativt, om du inte kan/vill bygga själv, ladda ner SruMaker-1.0-SNAPSHOT.j
 
 ## Kör programmet
 Öppna ett terminalfönster och ställ dig i rot-katalogen (samma katalog där pom.xml finns)
-Kör programmet genom att skriva  ``` java -classpath ./target/SruMaker-1.1-SNAPSHOT-jar-with-dependencies.jar com.ebtcap.sru.SruMaker 2022 true ```
+Kör programmet genom att skriva  ``` java -classpath ./target/SruMaker-1.1-SNAPSHOT-jar-with-dependencies.jar com.ebtcap.sru.SruMaker 2023 true ```
 - Det första argumentet är året
 - Det andra är true/false om transaktionerna ska slås samman eller inte. Slå samman transaktionerna minskar antalet rader att deklarera.
 
 Programmet läser in CSV-filerna och skapar följande utdata-filer
 - BLANKETTER.SRU. Alla K4 blanketterna. Kan laddas upp på deklarationssidan import.
-- utdata_K4_2022.xlsx. Innehåller alla K4-uppgifter.
-- utdata_aktier_2022.xlsx och utdata_valuta_2022.xlsx. Innehåller utgående innehav i aktier och valuta. Dessa kan sedan användas som indata nästa år.
+- utdata_K4_2023.xlsx. Innehåller alla K4-uppgifter.
+- utdata_aktier_2023.xlsx och utdata_valuta_2023.xlsx. Innehåller utgående innehav i aktier och valuta. Dessa kan sedan användas som indata nästa år.
 
 ## Deklarera
 I Skatteverkets deklarationstjänst kan du importera filen på två ställen i e-tjänsten. Antingen direkt i menyvalet Bilagor, eller från den bilaga som har skapats åt dig. Välj BLANKETTER.SRU som du skapat med detta program. Klicka på Importera. Granska sedan resultatet innan du godkänner.

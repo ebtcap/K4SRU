@@ -83,6 +83,10 @@ public class SruMaker {
         FileInputStream file = new FileInputStream(System.getProperty("user.dir") + File.separator  + "indata_valuta.xlsx");
         List<ExcelCurrencyHolding> excelCurrencyHoldings = ExcelCurrencyHoldingsReader.readFromFile(file);
         for (ExcelCurrencyHolding excelCurrencyHolding : excelCurrencyHoldings) {
+            if (excelCurrencyHolding.getCurrencyCode() == null ||
+                    excelCurrencyHolding.getCurrencyCode().isEmpty()) {
+                continue;
+            }
             Money foreignCurrency = Money.of(excelCurrencyHolding.getAmount(), excelCurrencyHolding.getCurrencyCode());
             Money costBase = Money.of(excelCurrencyHolding.getCostBaseInSEK(),"SEK");
             FinancialYearService.addInitialCurrencyHolding(year,foreignCurrency, costBase);
