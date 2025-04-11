@@ -100,9 +100,22 @@ public class SruMaker {
         parseParetoTrades(year);
         parseIBKRTrades(year);
         parseAvanzaTrades(year);
+        parseSaxoTrades(year);
         FinancialYearService.clearInsignificantHoldings(year);
 
         logger.info("Processing trades done");
+    }
+
+    private static void parseSaxoTrades(FinancialYear year) throws IOException {
+        File file = new File(System.getProperty("user.dir") + File.separator + "indata_saxo.xlsm");
+        if (!file.exists()) {
+            logger.info("Saxo file not found.");
+            return;
+        }
+        try (FileInputStream fileInputStream = new FileInputStream(file)) {
+            List<SaxoTrade> trades = SaxoExcelService.parseTradesFromExcel(fileInputStream);
+            SaxoTradesService.registerTrades(trades, year); // Implement this if needed
+        }
     }
 
     private static void parseAvanzaTrades(FinancialYear year) throws IOException {
