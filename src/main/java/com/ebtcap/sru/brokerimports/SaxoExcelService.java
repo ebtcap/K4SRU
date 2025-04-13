@@ -21,32 +21,56 @@ public class SaxoExcelService {
                     continue;
                 }
                 SaxoTrade trade = new SaxoTrade();
-                trade.setTradeDateClose(row.getCell(0).getStringCellValue());
-                trade.setTradeDateOpen(row.getCell(1).getStringCellValue());
-                trade.setAccountId(row.getCell(2).getStringCellValue());
-                trade.setAccountCurrency(row.getCell(3).getStringCellValue());
-                trade.setAssetType(row.getCell(4).getStringCellValue());
-                trade.setInstrumentDescription(row.getCell(5).getStringCellValue());
-                trade.setInstrumentSymbol(row.getCell(6).getStringCellValue());
-                trade.setInstrumentCurrency(row.getCell(7).getStringCellValue());
-                trade.setOpenPositionId(row.getCell(8).getStringCellValue());
-                trade.setClosePositionId(row.getCell(9).getStringCellValue());
-                trade.setQuantityClose(row.getCell(10).getNumericCellValue());
-                trade.setQuantityOpen(row.getCell(11).getNumericCellValue());
-                trade.setOpenPrice(row.getCell(12).getNumericCellValue());
-                trade.setClosePrice(row.getCell(13).getNumericCellValue());
-                trade.setTotalBookedOnOpeningLegAccountCurrency(row.getCell(14).getNumericCellValue());
-                trade.setTotalBookedOnOpeningLegClientCurrency(row.getCell(15).getNumericCellValue());
-                trade.setTotalBookedOnClosingLegAccountCurrency(row.getCell(16).getNumericCellValue());
-                trade.setClientCurrency(row.getCell(17).getStringCellValue());
-                trade.setTotalBookedOnClosingLegClientCurrency(row.getCell(18).getNumericCellValue());
-                trade.setPnLAccountCurrency(row.getCell(19).getNumericCellValue());
-                trade.setPnLClientCurrency(row.getCell(20).getNumericCellValue());
+                trade.setTradeDateClose(getCellValueAsString(row.getCell(0))); // Trade close date
+                trade.setTradeDateOpen(getCellValueAsString(row.getCell(1))); // Trade open date
+                trade.setAccountId(getCellValueAsString(row.getCell(2)));
+                trade.setAccountCurrency(getCellValueAsString(row.getCell(3)));
+                trade.setAssetType(getCellValueAsString(row.getCell(4)));
+                trade.setInstrumentDescription(getCellValueAsString(row.getCell(5)));
+                trade.setInstrumentSymbol(getCellValueAsString(row.getCell(6)));
+                trade.setInstrumentCurrency(getCellValueAsString(row.getCell(7)));
+                trade.setOpenPositionId(getCellValueAsString(row.getCell(8)));
+                trade.setClosePositionId(getCellValueAsString(row.getCell(9)));
+                trade.setQuantityClose(getCellValueAsDouble(row.getCell(10)));
+                trade.setQuantityOpen(getCellValueAsDouble(row.getCell(11)));
+                trade.setOpenPrice(getCellValueAsDouble(row.getCell(12)));
+                trade.setClosePrice(getCellValueAsDouble(row.getCell(13)));
+                trade.setTotalBookedOnOpeningLegAccountCurrency(getCellValueAsDouble(row.getCell(14)));
+                trade.setTotalBookedOnOpeningLegClientCurrency(getCellValueAsDouble(row.getCell(15)));
+                trade.setTotalBookedOnClosingLegAccountCurrency(getCellValueAsDouble(row.getCell(16)));
+                trade.setClientCurrency(getCellValueAsString(row.getCell(17)));
+                trade.setTotalBookedOnClosingLegClientCurrency(getCellValueAsDouble(row.getCell(18)));
+                trade.setPnLAccountCurrency(getCellValueAsDouble(row.getCell(19)));
+                trade.setPnLClientCurrency(getCellValueAsDouble(row.getCell(20)));
                 trades.add(trade);
             }
         } catch (Exception e) {
             throw new RuntimeException("Error parsing Saxo Excel file", e);
         }
         return trades;
+    }
+
+    private static String getCellValueAsString(Cell cell) {
+        if (cell == null) {
+            return "";
+        }
+        if (cell.getCellType() == CellType.STRING) {
+            return cell.getStringCellValue();
+        } else if (cell.getCellType() == CellType.NUMERIC) {
+            if (DateUtil.isCellDateFormatted(cell)) {
+                // Convert the date to a standard format (e.g., "yyyy-MM-dd")
+                return cell.getLocalDateTimeCellValue().toLocalDate().toString();
+            }
+            return String.valueOf(cell.getNumericCellValue());
+        } else {
+            return "";
+        }
+    }
+
+    private static double getCellValueAsDouble(Cell cell) {
+        if (cell == null || cell.getCellType() != CellType.NUMERIC) {
+            return 0.0;
+        }
+        return cell.getNumericCellValue();
     }
 }
