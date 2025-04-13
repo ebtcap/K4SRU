@@ -24,11 +24,15 @@ public class SaxoExcelService {
                 trade.setTradeDateClose(getCellValueAsString(row.getCell(0))); // Trade close date
                 trade.setTradeDateOpen(getCellValueAsString(row.getCell(1))); // Trade open date
                 trade.setAccountId(getCellValueAsString(row.getCell(2)));
-                trade.setAccountCurrency(getCellValueAsString(row.getCell(3)));
+                //trade.setAccountCurrency(getCellValueAsString(row.getCell(3)));
+                // Changed to test to avoid currency conversion
+                trade.setAccountCurrency(getCellValueAsString(row.getCell(17)));
                 trade.setAssetType(getCellValueAsString(row.getCell(4)));
                 trade.setInstrumentDescription(getCellValueAsString(row.getCell(5)));
                 trade.setInstrumentSymbol(getCellValueAsString(row.getCell(6)));
-                trade.setInstrumentCurrency(getCellValueAsString(row.getCell(7)));
+                //trade.setInstrumentCurrency(getCellValueAsString(row.getCell(7)));
+                // Changed to test to avoid currency conversion
+                trade.setInstrumentCurrency(getCellValueAsString(row.getCell(17)));
                 trade.setOpenPositionId(getCellValueAsString(row.getCell(8)));
                 trade.setClosePositionId(getCellValueAsString(row.getCell(9)));
                 trade.setQuantityClose(getCellValueAsDouble(row.getCell(10)));
