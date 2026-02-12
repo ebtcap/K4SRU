@@ -1,5 +1,7 @@
 package com.ebtcap.sru.brokerimports;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -9,17 +11,26 @@ import java.util.List;
 
 public class SaxoExcelService {
 
+    protected static final Logger logger = LogManager.getLogger();
+
     public static List<SaxoTrade> parseTradesFromExcel(InputStream inputStream) {
         List<SaxoTrade> trades = new ArrayList<>();
+        int rowNumber = 0;
         try (Workbook workbook = new XSSFWorkbook(inputStream)) {
             Sheet sheet = workbook.getSheetAt(0); // Assuming the data is in the first sheet
-            int rowNumber = 0;
+            logger.info("Reading Saxo Excel file, total rows: {}", sheet.getLastRowNum() + 1);
             for (Row row : sheet) {
                 rowNumber++;
                 if (rowNumber == 1) {
                     // Skip header row
                     continue;
                 }
+                
+                // Skip empty rows
+                if (row.getCell(0) == null || getCellValueAsString(row.getCell(0)).isEmpty()) {
+                    continue;
+                }
+                
                 SaxoTrade trade = new SaxoTrade();
                 trade.setTradeDateClose(getCellValueAsString(row.getCell(0))); // Trade close date
                 trade.setTradeDateOpen(getCellValueAsString(row.getCell(1))); // Trade open date
@@ -46,10 +57,20 @@ public class SaxoExcelService {
                 trade.setTotalBookedOnClosingLegClientCurrency(getCellValueAsDouble(row.getCell(18)));
                 trade.setPnLAccountCurrency(getCellValueAsDouble(row.getCell(19)));
                 trade.setPnLClientCurrency(getCellValueAsDouble(row.getCell(20)));
+                
+                // Debug logging for first few trades
+                if (trades.size() < 3) {
+                    logger.debug("Row {}: Instrument={}, Currency='{}', OpenQty={}, CloseQty={}", 
+                        rowNumber, trade.getInstrumentDescription(), 
+                        trade.getClientCurrency(), trade.getQuantityOpen(), trade.getQuantityClose());
+                }
+                
                 trades.add(trade);
             }
+            logger.info("Successfully parsed {} Saxo trades", trades.size());
         } catch (Exception e) {
-            throw new RuntimeException("Error parsing Saxo Excel file", e);
+            logger.error("Error parsing Saxo Excel file at row: {}", rowNumber, e);
+            throw new RuntimeException("Error parsing Saxo Excel file at row " + rowNumber + ": " + e.getMessage(), e);
         }
         return trades;
     }

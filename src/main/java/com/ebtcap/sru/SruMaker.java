@@ -107,7 +107,7 @@ public class SruMaker {
     }
 
     private static void parseSaxoTrades(FinancialYear year) throws IOException {
-        File file = new File(System.getProperty("user.dir") + File.separator + "indata_saxo.xlsm");
+        File file = new File(System.getProperty("user.dir") + File.separator + "indata_saxo.xlsx");
         if (!file.exists()) {
             logger.info("Saxo file not found.");
             return;
