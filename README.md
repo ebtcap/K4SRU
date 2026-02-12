@@ -2,10 +2,11 @@
 
 Det här programmet genererar K4 SRU-fil som kan laddas upp till skatteverket. Programmet skapar även Excel-fil så att resultatet kan granskas. Programmet hanterar valutakonton och räknar om enligt skatteverkets regler. 
 
-Indata från mäklare sker med CSV-filer. Följande format finns färdiga:
-- Pareto
-- Interactive Brokers (ta ut en rapport med "Flex Queries" -> Trades)
-- Avanza
+Indata från mäklare sker med CSV-filer eller Excel-filer. Följande format finns färdiga:
+- **Pareto** (CSV)
+- **Interactive Brokers** (CSV - ta ut en rapport med "Flex Queries" -> Trades)
+- **Avanza** (CSV)
+- **Saxo Bank** (Excel .xlsx - exportera "Closed Positions" rapport)
 
 Om du har data från andra mäklare så kan du antingen anpassa formatet till någon av de färdiga ovan eller så bygger du en ny import i programmet. Uppgifterna du vill ha med är
 - Namn (på aktie, valuta alt. ticker)
@@ -18,15 +19,24 @@ Har de dragit avgifter mm. i annan valuta än SEK ska det redovisas som en valut
 
 Programmet använder en genomsnittskurs för året för valutatransaktioner. Varje transaktion i en valuta som inte är SEK genererar en valutatransaktion också. T.ex. om du har sålt en aktie och fått betalt i dollar till ditt valutakonto. För blankningar bokas affären först när positionen är täckt.
 
+**OBS för Saxo Bank:** Saxo-filen innehåller redan avslutade positioner (paired trades) där både köp och sälj ingår i samma rad. Saxo konverterar även automatiskt alla belopp till kontovaluta (SEK), vilket innebär att ingen separat valutakonvertering behövs för dessa affärer.
+
 Som "Beteckning" används lite blandat mellan ticker och aktienamn beroende vad vi fått ut i exporten från mäklaren. Det korrekta är egentligen aktienamn. Skatteverket bör dock acceptera ticker. Men se till att spara dina underlag ifall Skatteverket skulle höra av sig med frågor.
 
 ## Programmets indata
-Redigera alla filer som börjar på indata*
-- Personliga uppgifter i indata.properties.
-- CSV med transaktioner från Avanza, Pareto och Interactive Brokers. Använd den/de som är relevanta för dig. Ta bort den/de som är orelevanta.
-- Ingående saldo för aktier och valutor med inköpsvärde.
+Redigera alla filer som börjar på `indata*`:
+- **indata.properties** - Personliga uppgifter (personnummer, namn, adress)
+- **indata_avanza.csv** - Transaktioner från Avanza (om relevant)
+- **indata_ibkr.csv** - Transaktioner från Interactive Brokers (om relevant)
+- **indata_pareto.csv** - Transaktioner från Pareto (om relevant)
+- **indata_saxo.xlsx** - Avslutade positioner från Saxo Bank (om relevant)
+- **indata_aktier.xlsx** - Ingående saldo för aktier med inköpsvärde
+- **indata_valuta.xlsx** - Ingående saldo för valutor med inköpsvärde
+- **indata_valutakurser.xlsx** - Årskurser för valutaomräkning
 
-OBS, granska csv manuellt! T.ex. ska inte fonder (inklusive ETF:er) vara med. Dvs. ska ej redovisas via K4.
+Programmet hoppar automatiskt över filer som saknas, så du behöver bara ha de filer som är relevanta för dig.
+
+**OBS:** Granska CSV/Excel-filer manuellt! T.ex. ska inte fonder (inklusive ETF:er) vara med, dvs. ska ej redovisas via K4.
 
 
 ## Bygg programmet
@@ -40,10 +50,16 @@ Alternativt, om du inte kan/vill bygga själv, ladda ner SruMaker-1.0-SNAPSHOT.j
 
 
 ## Kör programmet
-Öppna ett terminalfönster och ställ dig i rot-katalogen (samma katalog där pom.xml finns)
-Kör programmet genom att skriva  ``` java -classpath ./target/SruMaker-1.1-SNAPSHOT-jar-with-dependencies.jar com.ebtcap.sru.SruMaker 2023 true ```
-- Det första argumentet är året
-- Det andra är true/false om transaktionerna ska slås samman eller inte. Slå samman transaktionerna minskar antalet rader att deklarera.
+Öppna ett terminalfönster och ställ dig i rot-katalogen (samma katalog där pom.xml finns).
+
+Kör programmet genom att skriva:
+```bash
+java -classpath ./target/SruMaker-1.1-SNAPSHOT-jar-with-dependencies.jar com.ebtcap.sru.SruMaker 2024 true
+```
+
+**Parametrar:**
+- **Första argumentet** (2024) - Deklarationsåret
+- **Andra argumentet** (true/false) - Om transaktioner ska slås samman. `true` minskar antalet rader i deklarationen genom att gruppera transaktioner per värdepapper.
 
 Programmet läser in CSV-filerna och skapar följande utdata-filer
 - BLANKETTER.SRU. Alla K4 blanketterna. Kan laddas upp på deklarationssidan import.
