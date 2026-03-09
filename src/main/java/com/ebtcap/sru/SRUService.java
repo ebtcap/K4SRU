@@ -57,6 +57,7 @@ public class SRUService {
             sb.add("#NAMN " + blankett.getNamn());
             addAktieRows(sb, blankett.getAktieRader(), blankett.getSummaRadAktier());
             addValutaRows(sb, blankett.getValutaRader(), blankett.getSummaRadValuta());
+            addDerivatRows(sb, blankett.getDerivatRader(), blankett.getSummaRadDerivat());
             sb.add("#UPPGIFT 7014 " + blankett.getK4Nummer());
             sb.add("#BLANKETTSLUT");
         }
@@ -87,6 +88,32 @@ public class SRUService {
             sb.add("#UPPGIFT 3401 " + summaRadValuta.getOmkostnadsbelopp() + "");
             sb.add("#UPPGIFT 3403 " + summaRadValuta.getVinst() + "");
             sb.add("#UPPGIFT 3404 " + summaRadValuta.getForlust() + "");
+        }
+    }
+
+    private static void addDerivatRows(List<String> sb, List<K4Rad> derivatRader, K4Summa summaRadDerivat) {
+        if (derivatRader == null || derivatRader.size() == 0) {
+            return;
+        }
+        int counter = 41;
+
+        if (derivatRader.size() > 7) {
+            throw new RuntimeException("För många derivat-rader! Max 7 per sida.");
+        }
+        for (K4Rad rad : derivatRader) {
+            sb.add("#UPPGIFT 3" + counter + "0 " + rad.getAntal() + "");
+            sb.add("#UPPGIFT 3" + counter + "1 " + rad.getBeteckning() + "");
+            sb.add("#UPPGIFT 3" + counter + "2 " + rad.getForsaljningspris() + "");
+            sb.add("#UPPGIFT 3" + counter + "3 " + rad.getOmkostnadsbelopp() + "");
+            sb.add("#UPPGIFT 3" + counter + "4 " + rad.getVinst() + "");
+            sb.add("#UPPGIFT 3" + counter + "5 " + rad.getForlust() + "");
+            counter++;
+        }
+        if (summaRadDerivat != null) {
+            sb.add("#UPPGIFT 3500 " + summaRadDerivat.getForsaljningspris() + "");
+            sb.add("#UPPGIFT 3501 " + summaRadDerivat.getOmkostnadsbelopp() + "");
+            sb.add("#UPPGIFT 3503 " + summaRadDerivat.getVinst() + "");
+            sb.add("#UPPGIFT 3504 " + summaRadDerivat.getForlust() + "");
         }
     }
 

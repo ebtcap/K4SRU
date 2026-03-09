@@ -8,12 +8,22 @@ public class SecuritySale {
     private double amount;
     private  Money salePriceSEK;
     private  Money costPriceSEK;
+    private String section; // K4 section: "A" for equities/indices, "C" for currency/bonds, "D" for commodities
 
     public SecuritySale(String name, double amount, Money salePriceSEK, Money costPriceSEK) {
         this.name = name;
         this.amount = amount;
         this.salePriceSEK = salePriceSEK;
         this.costPriceSEK = costPriceSEK;
+        this.section = "A"; // Default to section A for backwards compatibility
+    }
+
+    public SecuritySale(String name, double amount, Money salePriceSEK, Money costPriceSEK, String section) {
+        this.name = name;
+        this.amount = amount;
+        this.salePriceSEK = salePriceSEK;
+        this.costPriceSEK = costPriceSEK;
+        this.section = section != null ? section : "A";
     }
 
     public Money getProfit() {
@@ -50,6 +60,14 @@ public class SecuritySale {
 
     public Money getCostPriceSEK() {
         return costPriceSEK;
+    }
+
+    public String getSection() {
+        return section;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
     }
 
     @Override

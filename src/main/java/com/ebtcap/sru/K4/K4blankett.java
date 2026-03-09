@@ -19,6 +19,9 @@ public class K4blankett {
     private List<K4Rad> valutaRader;
     private K4Summa summaRadValuta;
 
+    private List<K4Rad> derivatRader; // Section D - Derivatives/Commodities
+    private K4Summa summaRadDerivat;
+
     public int getK4Nummer() {
         return K4Nummer;
     }
@@ -83,6 +86,22 @@ public class K4blankett {
         this.summaRadValuta = summaRadValuta;
     }
 
+    public List<K4Rad> getDerivatRader() {
+        return derivatRader;
+    }
+
+    public void setDerivatRader(List<K4Rad> derivatRader) {
+        this.derivatRader = derivatRader;
+    }
+
+    public K4Summa getSummaRadDerivat() {
+        return summaRadDerivat;
+    }
+
+    public void setSummaRadDerivat(K4Summa summaRadDerivat) {
+        this.summaRadDerivat = summaRadDerivat;
+    }
+
     public String getNamn() {
         return namn;
     }
@@ -103,6 +122,8 @@ public class K4blankett {
                 ", summaRadAktier=" + summaRadAktier +
                 ", valutaRader=" + print(valutaRader) +
                 ", summaRadValuta=" + summaRadValuta +
+                ", derivatRader=" + print(derivatRader) +
+                ", summaRadDerivat=" + summaRadDerivat +
                 '}';
     }
 
