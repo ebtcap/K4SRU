@@ -25,6 +25,7 @@ public class FuturesSectionMapper {
         INSTRUMENT_PATTERNS.put(Pattern.compile("(?i).*DAX.*"), "A");
         INSTRUMENT_PATTERNS.put(Pattern.compile("(?i).*FTSE.*"), "A");
         INSTRUMENT_PATTERNS.put(Pattern.compile("(?i).*Nikkei.*"), "A");
+        INSTRUMENT_PATTERNS.put(Pattern.compile("(?i).*MSCI.*Emerging.*"), "A");
 
         // Section C: Fixed income (bonds, notes, bills)
         INSTRUMENT_PATTERNS.put(Pattern.compile("(?i).*Treasury.*Note.*"), "C");
