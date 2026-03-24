@@ -83,3 +83,13 @@ hs_err_pid*
 *.bak
 *.swp
 *~.nib
+
+# Personal tax files and data - keep locally, don't commit
+indata.properties
+indata_*.csv
+indata_*.xlsx
+utdata_*.xlsx
+BLANKETTER.SRU
+INFO.SRU
+K4SRU-fält.txt
+README.pdf
